@@ -1,3 +1,5 @@
+//First Unique Character in a String
+
 import java.util.Map.Entry;
 class Solution {
     public int firstUniqChar(String s) {
