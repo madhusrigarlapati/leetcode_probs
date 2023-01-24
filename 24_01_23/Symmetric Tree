@@ -1,0 +1,48 @@
+//Symmetric Tree
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int f=1;
+    public void post(TreeNode p,TreeNode q){
+        if(p==null && q==null){return ;}
+        if(p==null && q!=null){
+            f=0;
+            return;
+        }
+        if(p!=null && q==null){
+            f=0;
+            return;
+        }
+            post(p.left,q.right);
+            post(p.right,q.left);
+            System.out.println(p.val);
+                        System.out.println(q.val);
+            if(p.val!=q.val){
+                f=0;
+            }
+    }
+    
+    public boolean isSymmetric(TreeNode root) {
+        post(root.left,root.right);
+        if(f==1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
