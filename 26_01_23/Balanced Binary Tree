@@ -1,0 +1,41 @@
+//Balanced Binary Tree
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int f=1;
+    public int hei(TreeNode root,int max){
+        if(root==null){
+            return 0;
+        }
+        int lh=hei(root.left,max);
+        int rh=hei(root.right,max);
+        if(Math.abs(lh-rh)>1){
+            f=0;
+        };
+        max=1+Integer.max(lh,rh);
+        return max;
+    }
+    public boolean isBalanced(TreeNode root) {
+        int a=hei(root,0);
+        if(f==0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+}
