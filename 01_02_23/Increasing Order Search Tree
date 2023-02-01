@@ -1,0 +1,41 @@
+//Increasing Order Search Tree
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    LinkedList<TreeNode> l=new LinkedList<>();
+    public void ino( TreeNode root){
+        if(root==null){
+            return ;
+        }
+        ino(root.left);
+        l.add(root);
+        ino(root.right);
+    }
+    public TreeNode increasingBST(TreeNode root) {
+        ino(root);
+        TreeNode n= new TreeNode(0);
+        TreeNode cur = n;
+        if(l.size()>0){
+            for(TreeNode node : l){
+                node.left=null;
+                cur.right=node;
+                cur=cur.right;
+            }
+        }
+        return n.right;
+    }
+}
