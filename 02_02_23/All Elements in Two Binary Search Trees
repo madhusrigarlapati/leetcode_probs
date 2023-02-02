@@ -1,0 +1,41 @@
+// All Elements in Two Binary Search Trees
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    ArrayList<Integer> l=new ArrayList<Integer>();
+    int i=0;
+    public void ino(TreeNode root1){
+        if(root1==null ) return ;
+        ino(root1.left);
+        l.add(root1.val);
+        ino(root1.right);
+    }
+    public void ino1(TreeNode root2){
+        if(root2==null ) return ;
+        ino1(root2.left);
+        while(i<l.size() && root2.val>l.get(i)){
+            i++;
+        }
+        l.add(i,root2.val);
+        ino1(root2.right);
+    }
+    public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
+        ino(root1);
+        ino1(root2);
+        return l;
+    }
+}
