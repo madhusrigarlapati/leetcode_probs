@@ -1,0 +1,42 @@
+//Top view of Binary Tree from hackerrank contest
+
+/* 
+    
+    class Node 
+    	int data;
+    	Node left;
+    	Node right;
+	*/
+    
+	public static void topView(Node root) {
+        class QueueData{
+            int value;
+            Node node;
+            QueueData(Node node,int value){
+                this.node=node;
+                this.value=value;
+            }
+        }
+        Queue<QueueData> que=new LinkedList<>();
+        if(root==null){
+            return ;
+        }
+        Map<Integer,Integer> map=new TreeMap<>();
+        que.add(new QueueData(root,0));
+        while(!que.isEmpty()){
+            QueueData cur=que.poll();
+            if(!map.containsKey(cur.value)){
+                map.put(cur.value,cur.node.data);
+            }
+            if(cur.node.left!=null){
+                que.add(new QueueData(cur.node.left,cur.value-1));
+            }
+            if(cur.node.right!=null){
+                que.add(new QueueData(cur.node.right,cur.value+1));
+            }
+        }
+        for(Map.Entry<Integer,Integer> entry: map.entrySet()){
+            System.out.print(entry.getValue()+" ");
+        }
+      
+    }
