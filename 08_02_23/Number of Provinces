@@ -1,0 +1,36 @@
+//Number of Provinces
+
+class Solution {
+    public int findCircleNum(int[][] isConnected) {
+        int n=isConnected.length;
+        ArrayList<ArrayList<Integer>> ad=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            ad.add(new ArrayList<>());
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(isConnected[i][j]==1 && i!=j){
+                    ad.get(i).add(j);
+                    ad.get(j).add(i);
+                }
+            }
+        }
+        int v[]=new int[n];
+        int c=0;
+        for(int i=0;i<n;i++){
+            if(v[i]==0){
+                c+=1;
+                dfs(i,ad,v);
+            }
+        }
+        return c;
+    }
+    public void dfs(int i,ArrayList<ArrayList<Integer>> ad , int v[]){
+        v[i]=1;
+        for(int e:ad.get(i)){
+            if(v[e]==0){
+                dfs(e,ad,v);
+            }
+        }
+    }
+}
