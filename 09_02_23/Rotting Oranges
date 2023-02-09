@@ -1,0 +1,59 @@
+// Rotting Oranges
+
+class Solution {
+    class pair{
+        int r;
+        int c;
+        int t;
+        pair(int r,int c,int t){
+            this.r=r;
+            this.c = c;
+            this.t =t;
+
+        }
+    }
+    public int orangesRotting(int[][] grid) {
+        int r = grid.length;
+        int c = grid[0].length;
+        int[][] visit = new int[r][c];
+        Queue<pair> queue = new LinkedList<>();
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(grid[i][j]==2){
+                    visit[i][j]= 2;
+                    queue.add(new pair(i,j,0));
+                }
+            }
+        }
+        int tm = 0;
+        int[] drow ={-1,0,1,0};
+        int[] dcol = {0,1,0,-1};
+        while(!queue.isEmpty()){
+            pair temp = queue.poll();
+            int rw = temp.r;
+            int cl = temp.c;
+            int time = temp.t;
+
+             tm =Math.max(time,tm);
+            for(int i=0;i<4;i++){
+                int rows = rw+drow[i];
+                int cols = cl+dcol[i];
+                if(rows>=0 &&  rows<r && cols>=0 && cols<c){
+                    if(grid[rows][cols]==1 && visit[rows][cols]!=2){
+                        visit[rows][cols]=2;
+                        queue.add(new pair(rows,cols,time+1));
+                    }
+
+                }
+            }
+            }
+            for(int i=0;i<r;i++){
+                for(int j=0;j<c;j++){
+                    if(grid[i][j]==1 && visit[i][j]!=2){
+                        return -1;
+                    }
+                }
+            }
+            return tm;
+    }
+}
